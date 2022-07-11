@@ -21,12 +21,18 @@ async login() {
         }
         return { success: false, msg: "존재하지 않는 아이디 입니다."};
     }
-    register() {
+    async register() {
         const client = this.body;
-        const response =UserStorage.save(client);
+        try{
+        const response =await UserStorage.save(client);
+        
         return response;
-    } 
-
+    }  catch (err) {
+        const a = {success: false, msg: err};
+        console.log(typeof a.msg);
+        return a;
+    }
+    }
     
 }
 
